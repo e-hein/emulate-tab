@@ -8,6 +8,7 @@ module.exports = function (config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
+      require('karma-firefox-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-mocha-reporter'),
       require('karma-coverage-istanbul-reporter'),
@@ -21,6 +22,12 @@ module.exports = function (config) {
       dir: require('path').join(__dirname, './coverage/emulate-tab-in-angular-material'),
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
+    },
+    customLaunchers: {
+      FirefoxHeadless: {
+        base: 'Firefox',
+        flags: [ '-headless' ],
+      },
     },
     reporters: ['mocha', 'kjhtml'],
     port: 9876,

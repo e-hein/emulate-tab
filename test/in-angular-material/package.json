@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "coverage": "ng test --code-coverage --watch false --browsers ChromeHeadless --reporters 'mocha,kjhtml,fail-fast'",
+    "version": "ng version",
+    "coverage": "ng test --code-coverage --watch false --browsers 'ChromeHeadless,FirefoxHeadless' --reporters 'mocha,kjhtml,fail-fast'",
     "lint": "ng lint",
     "e2e": "ng e2e --devServerTarget emulate-tab-in-angular-material:serve",
     "protractor": "ng e2e --webdriver-update false --protractor-config e2e/protractor-headless.conf.js"
@@ -41,6 +42,7 @@
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-fail-fast-reporter": "^1.0.5",
+    "karma-firefox-launcher": "^1.3.0",
     "karma-jasmine": "~3.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "karma-mocha-reporter": "^2.2.5",

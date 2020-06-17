@@ -10,7 +10,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "paths": {
-      "emulate-tab": ["/Users/ehein/Documents/dev-intern/emulate-tab/src"],
+      "emulate-tab": ["../../src"],
       "@app/testing": ["src/testing"],
       "@app/testing/*": ["src/testing/*"],
     },

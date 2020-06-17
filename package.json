@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/e-hein/emulate-tab#readme",
   "devDependencies": {
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "typescript": "^3.9.5"
   },
   "files": [
     "dist/*"
