@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { emulateTab } from 'emulate-tab';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'emulate-tab-in-angular-material';
+  public emulateTab() {
+    console.log('emulate tab');
+    emulateTab();
+  }
+
+  public divClicked() {
+    console.log('clicked');
+  }
 }
