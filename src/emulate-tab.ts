@@ -13,7 +13,7 @@ function _emulateTab(done: () => void) {
     bubbles: true,
   });
 
-  const tabListener = (ev) => {
+  const tabListener = (ev: KeyboardEvent) => {
     document.body.removeEventListener('keydown', tabListener);
     if (ev === tabKeypress) {
       emulateUncatchedTabEvent(source, done);
@@ -110,7 +110,7 @@ function findSizeAttributeKey(element: Element = document.body): keyof HTMLEleme
   return undefined;
 }
 
-const isVisibleByParents = (element: Element) => {
+const isVisibleByParents = (element: Element): boolean => {
   if (!element.isConnected) return false;
   if (element.tagName === 'BODY') return true;
 
