@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { testApp } from 'src/testing/app.shared-specs';
 import { AppComponent } from './app.component';
 
@@ -22,14 +22,14 @@ describe('app component', () => {
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
-        BrowserAnimationsModule,
+        NoopAnimationsModule,
       ],
       declarations: [AppComponent, StageComponent],
     }).compileComponents();
     fixture = TestBed.createComponent(StageComponent);
-    fixture.detectChanges();
+    fixture.autoDetectChanges(true);
     await fixture.whenStable();
   });
 
-  testApp(() => TestbedHarnessEnvironment.loader(fixture));
+  testApp(() => TestbedHarnessEnvironment.loader(fixture), () => Promise.resolve(document.activeElement?.id));
 });

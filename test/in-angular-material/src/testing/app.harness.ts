@@ -1,26 +1,12 @@
-import { ComponentHarness } from '@angular/cdk/testing';
+import { ComponentHarness, TestElement } from '@angular/cdk/testing';
 import { UnitTestElement } from '@angular/cdk/testing/testbed';
 import { InputHarnessFilters, MatInputHarness } from '@angular/material/input/testing';
 
 export class AppHarness extends ComponentHarness {
   public static hostSelector = 'app-root';
 
-  private activeElement = this.locatorFor('*:focus');
   private emulateTab = this.locatorFor('#emulate-tab-button');
   private title = this.locatorFor('h1');
-
-  public hasActiveElement(): Promise<boolean> {
-    return this.activeElement().then(
-      () => true,
-      () => false,
-    );
-  }
-
-  public async getActiveElementId(): Promise<string> {
-    const activeElement = await this.activeElement();
-    const activeElementId = await activeElement.getAttribute('id');
-    return activeElementId;
-  }
 
   public async hoverEmulateTab(): Promise<void> {
     const emulateTab = await this.emulateTab();
@@ -29,6 +15,7 @@ export class AppHarness extends ComponentHarness {
     if (emulateTab instanceof UnitTestElement) {
       (emulateTab.element as HTMLElement).dispatchEvent(new MouseEvent('mouseover'));
     }
+    await this.waitForTasksOutsideAngular();
     await this.forceStabilize();
   }
 
@@ -50,6 +37,5 @@ export class AppHarness extends ComponentHarness {
   public async focusInput(filters: Omit<InputHarnessFilters, 'ancestor'>) {
     const input = (await (await this.getInput(filters)).host());
     await input.click();
-    await this.forceStabilize();
   }
 }

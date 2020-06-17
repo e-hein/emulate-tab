@@ -9,7 +9,7 @@ import { emulateTab } from 'emulate-tab';
 export class AppComponent {
   public emulateTab() {
     console.log('emulate tab');
-    emulateTab();
+    return emulateTab();
   }
 
   public divClicked() {

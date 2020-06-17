@@ -4,7 +4,10 @@ import { browser, logging } from 'protractor';
 
 describe('workspace-project App', () => {
   beforeEach(() => browser.get('/'));
-  testApp(() => ProtractorHarnessEnvironment.loader());
+  testApp(
+    () => ProtractorHarnessEnvironment.loader(),
+    () => Promise.resolve().then(() => browser.driver.executeScript(() => document.activeElement?.id)),
+  );
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
