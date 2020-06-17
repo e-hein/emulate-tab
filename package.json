@@ -4,7 +4,7 @@
   "description": "emulate tab key without selector or dependencies",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,12 @@
   "bugs": {
     "url": "https://github.com/e-hein/emulate-tab/issues"
   },
-  "homepage": "https://github.com/e-hein/emulate-tab#readme"
+  "homepage": "https://github.com/e-hein/emulate-tab#readme",
+  "devDependencies": {
+    "shelljs": "^0.8.4",
+    "typescript": "^3.9.5"
+  },
+  "files": [
+    "dist/*"
+  ]
 }

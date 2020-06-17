@@ -1,0 +1,31 @@
+@import '../theme'
+@import '~@angular/material/button/button-theme'
+
+\:host
+  > *
+    display: inline-block
+    padding: 12px
+
+  > header
+    display: flex
+    justify-content: space-between
+
+  #emulate-tab-button
+    background: mat-color($primary)
+    color: mat-color($primary, default-contrast)
+    float: right
+    margin: 0px 0px 12px 12px
+    padding: 10px
+    line-height: 1.2em
+
+    &:hover
+      background: mat-color($accent)
+
+  .hidden
+    display: none
+
+  .collapsed
+    visibility: collapse
+
+  .mat-form-field
+    max-width: 250px

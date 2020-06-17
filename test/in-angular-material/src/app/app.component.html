@@ -1,0 +1,67 @@
+<header>
+  <h1>Emulate tab in app with @angular/material components</h1>
+  <div color="primary" class="mat-raised-button" tabindex="-1" (mouseover)="emulateTab()" id="emulate-tab-button">
+    hover to<br />
+    emulate tab
+  </div>
+</header>
+
+<mat-form-field><mat-label>first input</mat-label><input id="first-input" matInput /></mat-form-field>
+<mat-form-field><mat-label>second input</mat-label><input id="second-input" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>input before hidden input</mat-label><input id="input-before-hidden-input" matInput /></mat-form-field>
+<mat-form-field><mat-label>hidden input</mat-label><input matInput id="hidden-input" class="hidden" /></mat-form-field>
+<mat-form-field><mat-label>input after hidden input</mat-label><input id="input-after-hidden-input" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>input before collapsed input</mat-label><input id="input-before-collapsed-input" matInput /></mat-form-field>
+<mat-form-field><mat-label>collapsed input</mat-label><input matInput id="collapsed-input" class="collapsed" /></mat-form-field>
+<mat-form-field><mat-label>input after collapsed input</mat-label><input id="input-after-collapsed-input" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>input before disabled input</mat-label><input id="input-before-disabled-input" matInput /></mat-form-field>
+<mat-form-field><mat-label>disabled input</mat-label><input id="disabled-input" matInput disabled="disabled" /></mat-form-field>
+<mat-form-field><mat-label>input before disabled input</mat-label><input id="input-after-disabled-input" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>input before readonly input</mat-label><input id="input-before-readonly-input" matInput /></mat-form-field>
+<mat-form-field><mat-label>readonly input</mat-label><input id="readonly-input" matInput readonly="readonly" /></mat-form-field>
+
+<mat-form-field><mat-label>input before select</mat-label><input id="input-before-mat-select" matInput /></mat-form-field>
+<mat-form-field><mat-select id="mat-select"></mat-select></mat-form-field>
+
+<mat-form-field><mat-label>input before button</mat-label><input id="input-before-button" matInput /></mat-form-field>
+<button mat-raised-button id="mat-raised-button">click me</button>
+
+<mat-form-field><mat-label>input before clickable div</mat-label><input id="input-before-clickable-div" matInput /></mat-form-field>
+<div matInput label="clickable-div" (onclick)="divClicked()" tabIndex="0" id='clickable-div'>click me</div>
+
+<mat-form-field><mat-label>input before link</mat-label><input id="input-before-link" matInput /></mat-form-field>
+<a id="link-with-href" href="#" mat-button>link with href</a>
+
+<a id="link-without-href" mat-button>link without href</a>
+
+<a id="plain-link-with-href" href="#">plain link with href</a>
+
+<mat-form-field><mat-label>input before disabled input</mat-label><input id="input-before-plain-link-without-href" matInput /></mat-form-field>
+<a id="plain-link-without-href">plain link without href</a>
+<mat-form-field><mat-label>input before disabled input</mat-label><input id="input-after-plain-link-without-href" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>input before hidden child input</mat-label><input id="input-before-hidden-child-input" matInput /></mat-form-field>
+<div class="hidden">
+  <mat-form-field><mat-label>hidden child input</mat-label><input id="hidden-child-input" matInput /></mat-form-field>
+</div>
+<mat-form-field><mat-label>input after hidden child input</mat-label><input id="input-after-hidden-child-input" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>input before collapsed child input</mat-label><input id="input-before-collapsed-child-input" matInput /></mat-form-field>
+<div class="collapsed">
+  <mat-form-field><mat-label>collapsed child input</mat-label><input id="collapsed-child-input" matInput /></mat-form-field>
+</div>
+<mat-form-field><mat-label>input after collapsed child input</mat-label><input id="input-after-collapsed-child-input" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>input with tabIndex 3</mat-label><input tabindex="3" id="input-with-tab-index-3" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>input with tabIndex 2</mat-label><input tabindex="2" id="input-with-tab-index-2" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>input2 with tabIndex 2</mat-label><input tabindex="2" id="input2-with-tab-index-2" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>input with tabIndex 4</mat-label><input tabindex="4" id="input-with-tab-index-4" matInput /></mat-form-field>
+
+<mat-form-field><mat-label>last input</mat-label><input id="last-input" matInput /></mat-form-field>
