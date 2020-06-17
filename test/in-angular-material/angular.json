@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "emulate-tab-in-angular-material"
+    }
+  },
+  "defaultProject": "emulate-tab-in-angular-material",
+  "cli": {
+    "analytics": "0f9febd1-1415-46c4-811d-073a8963c20c"
+  }
 }
