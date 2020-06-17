@@ -1,17 +1,10 @@
-import { AppPage } from './app.po';
+import { ProtractorHarnessEnvironment } from '@angular/cdk/testing/protractor';
+import { testApp } from '@app/testing/app.shared-specs';
 import { browser, logging } from 'protractor';
 
 describe('workspace-project App', () => {
-  let page: AppPage;
-
-  beforeEach(() => {
-    page = new AppPage();
-  });
-
-  it('should display welcome message', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('emulate-tab-in-angular-material app is running!');
-  });
+  beforeEach(() => browser.get('/'));
+  testApp(() => ProtractorHarnessEnvironment.loader());
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

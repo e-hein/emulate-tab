@@ -24,7 +24,9 @@ exports.config = {
     print: function() {}
   },
   onPrepare() {
-    require('ts-node').register({
+    const tsNode = require('ts-node')
+    require('tsconfig-paths/register');
+    tsNode.register({
       project: require('path').join(__dirname, './tsconfig.json')
     });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
