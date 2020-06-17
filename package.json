@@ -1,0 +1,23 @@
+{
+  "name": "emulate-tab",
+  "version": "0.0.1",
+  "description": "emulate tab key without selector or dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e-hein/emulate-tab.git"
+  },
+  "keywords": [
+    "emulate",
+    "tab"
+  ],
+  "author": "Emanuel Hein",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/e-hein/emulate-tab/issues"
+  },
+  "homepage": "https://github.com/e-hein/emulate-tab#readme"
+}
