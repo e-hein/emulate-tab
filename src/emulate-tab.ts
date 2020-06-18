@@ -1,50 +1,94 @@
 const possibleSizeAttributeKeys = new Array<keyof HTMLElement>('offsetHeight', 'scrollHeight', 'clientHeight');
 
 export function emulateTab(): Promise<void> {
-  return new Promise(done => _emulateTab(done));
-}
-
-function _emulateTab(done: () => void) {
   const activeElement = document.activeElement;
   const source: HTMLElement = activeElement instanceof HTMLElement ? activeElement : document.body;
 
-  const tabKeypress = new KeyboardEvent('keydown', {
-    code: '13',
-    bubbles: true,
-  });
-
-  const tabListener = (ev: KeyboardEvent) => {
-    document.body.removeEventListener('keydown', tabListener);
-    if (ev === tabKeypress) {
-      emulateUncatchedTabEvent(source, done);
-    }
-  };
-
-  document.body.addEventListener('keydown', tabListener);
-  source.dispatchEvent(tabKeypress);
+  const nextElement = getNextElement(source);
+  return emulateTabFrom(source).to(nextElement);
 }
 
-function emulateUncatchedTabEvent(source: HTMLElement, done: () => void) {
-  source.blur();
+export namespace emulateTab {
+  export const from = emulateTabFrom;
+  export const to = (target: HTMLElement) => emulateTabFrom(activeElement()).to(target);
+  export const toPreviousElement = () => to(getPreviousElement(activeElement()));
+  export const toNextElement = () => emulateTab();
+  export const backwards = toPreviousElement;
+}
 
+function activeElement(): HTMLElement | undefined {
+  const activeElement = document.activeElement;
+  return activeElement instanceof HTMLElement ? activeElement : undefined;
+}
+
+function getPreviousElement(lastElement: HTMLElement = document.body) {
   const selectableElements = findAllElementsSelectableByTab();
   if (selectableElements.length < 1) {
-    console.warn('no selectable elements found');
-    return done();
+    throw new Error('no selectable elements found');
   }
-  const currentIndex = selectableElements.indexOf(source);
+
+  const currentIndex = selectableElements.indexOf(lastElement);
+  const previousIndex = (currentIndex > 0 ? currentIndex : selectableElements.length) - 1;
+  const previousElement = selectableElements[previousIndex];
+  return previousElement;
+}
+
+function getNextElement(lastElement: HTMLElement = document.body) {
+  const selectableElements = findAllElementsSelectableByTab();
+  if (selectableElements.length < 1) {
+    throw new Error('no selectable elements found');
+  }
+
+  const currentIndex = selectableElements.indexOf(lastElement);
   const nextIndex = currentIndex + 1 < selectableElements.length ? currentIndex + 1 : 0;
   const nextElement = selectableElements[nextIndex];
+  return nextElement;
+}
 
-  nextElement.focus();
+function emulateTabFrom(source: HTMLElement = document.body) {
+  const toPreviousElement = () => emulateTabFromSourceToTarget(source, getPreviousElement());
+  return {
+    toPreviousElement,
+    backwards: toPreviousElement,
+    to: (target: HTMLElement) => emulateTabFromSourceToTarget(source, target),
+    toNextElement: () => emulateTabFromSourceToTarget(source, getNextElement(source)),
+  };
+}
+
+function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement) {
+  return new Promise<void>(done => {
+    const tabKeypress = new KeyboardEvent('keydown', {
+      code: '13',
+      bubbles: true,
+    });
+
+    const tabListener = (ev: KeyboardEvent) => {
+      document.body.removeEventListener('keydown', tabListener);
+      if (ev === tabKeypress) {
+        if (source instanceof HTMLElement) {
+          source.blur();
+        }
+
+        emulateEventsAtTabTarget(target);
+        done();
+      }
+    };
+
+    document.body.addEventListener('keydown', tabListener);
+    source.dispatchEvent(tabKeypress);
+  });
+}
+
+function emulateEventsAtTabTarget(target: HTMLElement) {
+  target.focus();
   try {
-    (document as any).activeElement = nextElement;
+    (document as any).activeElement = target;
   } catch (e) {}
-  done();
 }
 
 export function findAllElementsSelectableByTab() {
   const allElements = Array.from(document.querySelectorAll('*')).filter(isHtmlElement);
+  initIsVisibleOnce();
   const tabGroups = allElements
     .filter(testAll(hasValidTabIndex, isVisible, isNotDisabledInput, isNotSkippableAnchor, isNotCollapsed))
     .reduce((grouped, element) => {
@@ -74,16 +118,18 @@ function testAll<T>(...elementFilter: Array<(element: T) => boolean>) {
 }
 const isHtmlElement = (element: any): element is HTMLElement => element instanceof HTMLElement;
 
-let isVisible: (element: HTMLElement) => boolean = lazyInitIsVisible;
+let isVisible: (element: HTMLElement) => boolean;
 
-function lazyInitIsVisible(element: HTMLElement): boolean {
+let initIsVisibleOnce = () => {
   const sizeAttributeKey = findSizeAttributeKey();
   if (sizeAttributeKey) {
+    // console.log('use isVisible by size attribute: ' + sizeAttributeKey);
     isVisible = isVisibleBySize(sizeAttributeKey);
   } else {
+    // console.log('use isVisible by parents');
     isVisible = isVisibleByParents;
   }
-  return isVisible(element);
+  initIsVisibleOnce = () => {};
 }
 
 const isVisibleBySize = (sizeAttribute: keyof HTMLElement) => (element: HTMLElement) => {
