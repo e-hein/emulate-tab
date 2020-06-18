@@ -1,3 +1,6 @@
+[![npm (tag)](https://img.shields.io/npm/v/emulate-tab/latest)](https://www.npmjs.com/package/emulate-tab)
+[![Travis (.org)](https://img.shields.io/travis/e-hein/emulate-tab?label=travis)](https://travis-ci.org/e-hein/emulate-tab)
+
 emulate tab
 ===========
 Tries to emulate a tab key press of a real user.
@@ -15,6 +18,7 @@ Usage
 import { emulateTab } from 'emulate-tab';
 
 emulateTab();
+emulateTab.backwards();
 ```
 
 Dependencies
