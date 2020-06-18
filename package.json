@@ -2,7 +2,7 @@
   "name": "emulate-tab",
   "version": "0.0.1",
   "description": "emulate tab key without selector or dependencies",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "node test.js"
   },
@@ -25,6 +25,6 @@
     "typescript": "^3.9.5"
   },
   "files": [
-    "dist/*"
+    "dist"
   ]
 }

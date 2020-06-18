@@ -5,7 +5,10 @@
   "main": "test.js",
   "scripts": {
     "test": "karma start",
-    "coverage": "karma start karma.conf.js --browsers=ChromeHeadless,FirefoxHeadless --single-run"
+    "coverage": "karma start --browsers=ChromeHeadless,FirefoxHeadless --single-run",
+    "pretest-node-module": "npm install $(npm pack ../../ | tail -1)",
+    "test-node-module": "karma start karma.node-module.conf.js --browsers=ChromeHeadless,FirefoxHeadless --single-run",
+    "posttest-node-module": "npm uninstall emulate-tab"
   },
   "author": "Emanuel Hein",
   "license": "MIT",
