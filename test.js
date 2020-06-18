@@ -7,8 +7,10 @@ const defaultOptions = {
   }
 };
 const inAngular = {
-  ...defaultOptions,
   cwd: './test/in-angular-material',
+};
+const inPlainHtml = {
+  cwd: './test/in-plain-html',
 };
 
 function run(cmd, options = {}) {
@@ -26,6 +28,8 @@ function run(cmd, options = {}) {
 Promise.resolve()
   .then(() => run('npm i'))
   .then(() => run('tsc'))
+  .then(() => run('npm i', inPlainHtml))
+  .then(() => run('npm run coverage', inPlainHtml))
   .then(() => run('npm i', inAngular))
   .then(() => run('npm run version', inAngular))
   .then(() => run('npm run coverage', inAngular))
