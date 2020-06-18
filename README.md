@@ -23,7 +23,8 @@ none.
 
 Browser compatibility:
 ----------------------
-Automated tests for current Chrome and Firefox: [![Build Status](https://travis-ci.org/e-hein/emulate-tab.svg?branch=master)](https://travis-ci.org/e-hein/emulate-tab)
+Automated tests for current Chrome and Firefox: 
+[![Travis (.org)](https://img.shields.io/travis/e-hein/emulate-tab?label=travis)](https://travis-ci.org/e-hein/emulate-tab)
 
 License:
 --------

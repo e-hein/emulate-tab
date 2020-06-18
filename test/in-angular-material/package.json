@@ -1,5 +1,6 @@
 {
   "name": "emulate-tab-in-angular-material",
+  "description": "test emulate-tab in angular with material components",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

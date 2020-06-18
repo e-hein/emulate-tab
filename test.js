@@ -1,5 +1,11 @@
 const shell = require('shelljs');
-const defaultOptions = { async: true };
+const defaultOptions = {
+  async: true,
+  env: {
+    ...process.env,
+    FORCE_COLOR: 2,
+  }
+};
 const inAngular = {
   ...defaultOptions,
   cwd: './test/in-angular-material',
