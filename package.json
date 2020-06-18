@@ -1,6 +1,6 @@
 {
   "name": "emulate-tab",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "emulate tab key without selector or dependencies",
   "main": "dist/index.js",
   "scripts": {
