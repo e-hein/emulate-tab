@@ -9,8 +9,8 @@ const defaultOptions = {
 const inAngular = {
   cwd: './test/in-angular-material',
 };
-const inPlainHtml = {
-  cwd: './test/in-plain-html',
+const inTypescriptRequireJs = {
+  cwd: './test/in-typescript-requirejs',
 };
 
 function run(cmd, options = {}) {
@@ -28,8 +28,8 @@ function run(cmd, options = {}) {
 Promise.resolve()
   .then(() => run('npm i'))
   .then(() => run('npm run build:all'))
-  .then(() => run('npm i', inPlainHtml))
-  .then(() => run('npm run test-node-module', inPlainHtml))
+  .then(() => run('npm i', inTypescriptRequireJs))
+  .then(() => run('npm run test-node-module', inTypescriptRequireJs))
   .then(() => run('npm i', inAngular))
   .then(() => run('npm run version', inAngular))
   .then(() => run('npm run coverage', inAngular))
