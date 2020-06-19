@@ -1,0 +1,9 @@
+<h1>Emulate Tab in typescript with reuquirejs</h1>
+<script src="scripts/require.js"></script>
+<div id="main-content"></div>
+<script>
+  const mainContent = document.getElementById('main-content');
+  require(['scripts/index.js'], ({ Index }) => {
+    new Index().init();
+  })
+</script>
