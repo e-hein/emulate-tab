@@ -27,7 +27,7 @@ function run(cmd, options = {}) {
 
 Promise.resolve()
   .then(() => run('npm i'))
-  .then(() => run('tsc'))
+  .then(() => run('npm run build:all'))
   .then(() => run('npm i', inPlainHtml))
   .then(() => run('npm run test-node-module', inPlainHtml))
   .then(() => run('npm i', inAngular))

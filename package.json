@@ -4,7 +4,16 @@
   "description": "emulate tab key without selector or dependencies",
   "main": "dist/index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "build": "tsc",
+    "build:amd": "tsc -p tsconfig.amd.json",
+    "build:umd": "tsc -p tsconfig.umd.json",
+    "prebuild:all": "rm -rf dist",
+    "build:all": "npm run build",
+    "postbuild:all": "npm run build:all:amd",
+    "build:all:amd": "npm run build:amd",
+    "postbuild:all:amd": "npm run build:all:umd",
+    "build:all:umd": "npm run build:umd"
   },
   "repository": {
     "type": "git",
