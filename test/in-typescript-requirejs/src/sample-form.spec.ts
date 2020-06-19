@@ -1,4 +1,5 @@
 import { emulateTab, findAllElementsSelectableByTab } from 'emulate-tab';
+import { waitFor } from './wait-for.model';
 
 describe('sample form', () => {
   beforeAll(() => {
@@ -10,18 +11,10 @@ describe('sample form', () => {
     fixture.cleanup();
     fixture.load('sample-form.html');
 
-    const hiddenInput = document.getElementById('hidden-input')
-    const limit = 10;
-    let currentTry = 0;
-    const waitForCss = (done) => {
-      const cssReady = getComputedStyle(hiddenInput).display === 'none';
-      if (cssReady) return done();
-      if (currentTry++ > limit) {
-        throw new Error('failed to get css');
-      }
-      setTimeout(() => waitForCss(done), 10);
-    }
-    return new Promise(waitForCss);
+    return waitFor('css', () => {
+      const hiddenInput = document.getElementById('hidden-input');
+      return !!hiddenInput && getComputedStyle(hiddenInput).display === 'none';
+    });
   });
 
   it('should find expected inputs (and not hidden/disabled...)', () => {
@@ -62,7 +55,7 @@ describe('sample form', () => {
   itShouldTabFrom('first-input').to('second-input');
   itShouldTabFrom('input-before-hidden-input').to('input-after-hidden-input');
 
-  describe('test advanced api', () => {
+  describe('advanced api', () => {
     let firstInput: HTMLElement;
     let secondInput: HTMLElement;
     let lastInput: HTMLElement;
@@ -236,7 +229,7 @@ describe('sample form', () => {
       // cleanup
       firstInput.removeEventListener('keydown', keydownListener);
     });
-  })
+  });
 });
 
 function itShouldTabFrom(sourceId: string) {

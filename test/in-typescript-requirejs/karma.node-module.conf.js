@@ -11,7 +11,7 @@ module.exports = function(config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine', 'fixture', 'karma-typescript'],
-    karmaTypescriptConfig: require('./tsconfig.json'),
+    karmaTypescriptConfig: require('./tsconfig.node-module.json'),
 
     plugins: config.plugins.concat(
       'karma-fixture',
@@ -28,12 +28,20 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      { pattern: '../../dist/**/*.js', included: false, served: true, watched: true },
-      { pattern: '../../src/**/*.ts', included: false, served: true, watched: true },
-      { pattern: 'src/**/*.css', included: false, served: true, watched: true },
+      { pattern: 'node_modules/requirejs/require.js', included: false, watched: false },
+      { pattern: '../../dist/**/*.js', included: false },
+      { pattern: '../../src/**/*.ts', included: false },
+      { pattern: 'src/**/*.css', included: false },
       'src/**/*.html',
-      'src/**/*.spec.@(ts|js)',
+      'src/**/*.@(spec|model).@(ts|js)',
     ],
+
+    proxies: {
+      '/scripts/require.js': '/base/node_modules/requirejs/require.js',
+      '/scripts/': '/base/src/',
+      '/styles/': '/base/src/',
+      '/app/': 'http://localhost:4300/',
+    },
 
     // list of files / patterns to exclude
     exclude: [

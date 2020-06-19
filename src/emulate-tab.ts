@@ -55,18 +55,24 @@ function emulateTabFrom(source: HTMLElement = document.body) {
   };
 }
 
+function createTabEvent(type: 'keydown' | 'keyup') {
+  return new KeyboardEvent(type, {
+    code: 'Tab',
+    key: 'Tab',
+    bubbles: true,
+  });
+}
+
 function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement) {
   return new Promise<void>(done => {
-    const tabKeypress = new KeyboardEvent('keydown', {
-      code: '13',
-      bubbles: true,
-    });
+    const tabKeydown = createTabEvent('keydown');
 
     const tabListener = (ev: KeyboardEvent) => {
       document.body.removeEventListener('keydown', tabListener);
-      if (ev === tabKeypress) {
+      if (ev === tabKeydown) {
         if (source instanceof HTMLElement) {
           source.blur();
+          source.dispatchEvent(new FocusEvent('blur'));
         }
 
         emulateEventsAtTabTarget(target);
@@ -75,12 +81,16 @@ function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement) 
     };
 
     document.body.addEventListener('keydown', tabListener);
-    source.dispatchEvent(tabKeypress);
+    source.dispatchEvent(tabKeydown);
   });
 }
 
 function emulateEventsAtTabTarget(target: HTMLElement) {
   target.focus();
+  target.dispatchEvent(new FocusEvent('focus'));
+
+  const tabKeyup = createTabEvent('keyup');
+  target.dispatchEvent(tabKeyup);
   try {
     (document as any).activeElement = target;
   } catch (e) {}
