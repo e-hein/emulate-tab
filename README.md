@@ -10,16 +10,29 @@ This script has an heuristic to find the next element to stop. It will trigger t
 
 Installation
 ------------
-```npm i emulate-tab```
+```npm i emulate-tab```  
+or download prebuild js package from [dist branch](https://github.com/e-hein/emulate-tab/tree/dist/dist/bundles)
 
 Usage
 -----
+#### typescript
 ```ts
 import { emulateTab } from 'emulate-tab';
 
 emulateTab();
 emulateTab.backwards();
 ```
+[-> complete angular material example project](test/in-angular-material/src/app/app.component.ts)
+
+#### javascript
+```html
+<script src="emulate-tab.min.js">
+<script>
+  emulateTab();
+  emulateTab.backwards();
+</script>
+```
+[-> complete plain html example project](test/in-plain-html-js/www/sample-form.html)
 
 Dependencies
 ------------

@@ -6,7 +6,11 @@
   <body>
     <header>
       <h2>Sample Form</h2>
-      <span onmouseover="emulateTab()">hover to emulate tab</span>
+      <div class="tab-hover-buttons">
+        hover to emulate tab:<br />
+        <span onmouseover="emulateTab.backwards()">&lt;-|</span>
+        <span onmouseover="emulateTab()">|-&gt;</span>
+      </div>
     </header>
 
     <label>first-input</label><input id="first-input" /><br />
@@ -59,5 +63,16 @@
     <label>input with tabIndex 4</label><input tabindex="4" id="input-with-tab-index-4" /><br />
     <br />
     <label>last-input</label><input id="last-input" /><br />
+    <script>
+      document.addEventListener('keydown', (ev) => {
+        if (ev.key === 'ArrowLeft') {
+          ev.preventDefault();
+          emulateTab.toPreviousElement();
+        } else if (ev.key === 'ArrowRight') {
+          ev.preventDefault();
+          emulateTab();
+        }
+      });
+    </script>
   </body>
 </html>

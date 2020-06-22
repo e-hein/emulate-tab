@@ -16,3 +16,20 @@ label {
 label + div {
   display: inline-block;
 }
+
+.tab-hover-buttons {
+  position: fixed;
+  text-align: right;
+  right: 2pt;
+  top: 2px;
+  display: inline-block
+}
+
+.tab-hover-buttons span {
+  display: inline-block;
+  padding: .5em;
+  background: blue;
+  color: white;
+  font-weight: bold;
+  text-decoration: line-through;
+}
