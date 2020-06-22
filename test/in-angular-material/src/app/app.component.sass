@@ -10,16 +10,23 @@
     display: flex
     justify-content: space-between
 
-  #emulate-tab-button
-    background: mat-color($primary)
-    color: mat-color($primary, default-contrast)
-    float: right
+  #emulate-tab-bar
     margin: 0px 0px 12px 12px
     padding: 10px
     line-height: 1.2em
 
+  .mat-raised-button.material-icons
+    background: mat-color($primary)
+    color: mat-color($primary, default-contrast)
+    font-family: 'Material Icons'
+    font-size: 24px
+
     &:hover
       background: mat-color($accent)
+
+  #emulate-shift-tab-button span
+    display: inline-block
+    transform: rotate(180deg)
 
   .hidden
     display: none

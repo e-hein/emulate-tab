@@ -12,6 +12,11 @@ export class AppComponent {
     return emulateTab();
   }
 
+  public emulateShiftTab() {
+    console.log('emulate shift tab');
+    return emulateTab.backwards();
+  }
+
   public divClicked() {
     console.log('clicked');
   }
