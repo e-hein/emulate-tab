@@ -200,6 +200,19 @@ describe('emulate tab', () => {
         '#last-input'
       ]);
     });
+
+    it('backwards', async () => {
+      // given
+      const firstInput = await (await loader.getHarness(MatInputHarness.with({ selector: '#first-input' }))).host();
+      const secondInput = await (await loader.getHarness(MatInputHarness.with({ selector: '#second-input' }))).host();
+      await secondInput.focus();
+
+      // when
+      await emulateTab.backwards();
+
+      // then
+      expect(await firstInput.isFocused()).toBe(true);
+    });
   });
 
   describe('in browsers which do support offsetHeight', () => {
