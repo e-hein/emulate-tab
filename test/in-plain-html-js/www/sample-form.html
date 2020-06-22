@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <link href="./sample-form.css" rel="stylesheet" />
+    <script src="./libs/emulate-tab.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h2>Sample Form</h2>
+      <div class="tab-hover-buttons">
+        hover to emulate tab:<br />
+        <span onmouseover="emulateTab.backwards()">&lt;-|</span>
+        <span onmouseover="emulateTab()">|-&gt;</span>
+      </div>
+    </header>
+
+    <label>first-input</label><input id="first-input" /><br />
+    <label>second-input</label><input id="second-input" /><br />
+    <br />
+    <label>input-before-hidden-input</label><input id="input-before-hidden-input" /><br />
+    <label>hidden-input</label><input id="hidden-input" class="hidden" /><br />
+    <label>input-after-hidden-input</label><input id="input-after-hidden-input" /><br />
+    <br />
+    <label>input-before-collapsed-input</label><input id="input-before-collapsed-input" /><br />
+    <label>collapsed-input</label><input id="collapsed-input" class="collapsed" /><br />
+    <label>input-after-collapsed-input</label><input id="input-after-collapsed-input" /><br />
+    <br />
+    <label>input-before-disabled-input</label><input id="input-before-disabled-input" /><br />
+    <label>disabled-input</label><input id="disabled-input" disabled="disabled" /><br />
+    <label>input-after-disabled-input</label><input id="input-after-disabled-input" /><br />
+    <br />
+    <label>input-before-readonly-input</label><input id="input-before-readonly-input" /><br />
+    <label>readonly-input</label><input id="readonly-input" readonly="readonly" /><br />
+    <br />
+    <label>input-before-select</label><input id="input-before-select" /><br />
+    <label>select</label><select id="select"></select><br />
+    <br />
+    <label>input-before-button</label><input id="input-before-button" /><br />
+    <label>button</label><button id="button">click me</button><br />
+    <br />
+    <label>input-before-clickable-div</label><input id="input-before-clickable-div" /><br />
+    <label>clickable-div</label><div label="clickable-div" (onclick)="divClicked()" tabIndex="0" id="clickable-div">click me</div><br />
+    <br />
+    <label>input-before-link</label><input id="input-before-link" /><br />
+    <label>link-with-href</label><a id="link-with-href" href="#">link with href</a><br />
+    <label>link-without-href</label><a id="link-without-href">link without href</a><br />
+    <label>input-after-link-without-href</label><input id="input-after-link-without-href" /><br />
+    <br />
+    <label>input-before-hidden-child-input</label><input id="input-before-hidden-child-input" /><br />
+    <div class="hidden">
+      <label>hidden-child-input</label><input id="hidden-child-input" /><br />
+    </div>
+    <label>input-after-hidden-child-input</label><input id="input-after-hidden-child-input" /><br />
+    <br />
+    <label>input-before-collapsed-child-input</label><input id="input-before-collapsed-child-input" /><br />
+    <div class="collapsed">
+      <label>collapsed-child-input</label><input id="collapsed-child-input" /><br />
+    </div>
+    <label>input-after-collapsed-child-input</label><input id="input-after-collapsed-child-input" /><br />
+    <br />
+    <label>input with tabIndex 3</label><input id="input-with-tab-index-3" tabindex="3" /><br />
+    <label>input with tabIndex 2</label><input tabindex="2" id="input-with-tab-index-2" /><br />
+    <label>input2 with tabIndex 2</label><input tabindex="2" id="input2-with-tab-index-2" /><br />
+    <label>input with tabIndex 4</label><input tabindex="4" id="input-with-tab-index-4" /><br />
+    <br />
+    <label>last-input</label><input id="last-input" /><br />
+    <script>
+      document.addEventListener('keydown', (ev) => {
+        if (ev.key === 'ArrowLeft') {
+          ev.preventDefault();
+          emulateTab.toPreviousElement();
+        } else if (ev.key === 'ArrowRight') {
+          ev.preventDefault();
+          emulateTab();
+        }
+      });
+    </script>
+  </body>
+</html>

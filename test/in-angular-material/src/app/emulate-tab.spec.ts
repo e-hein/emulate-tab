@@ -200,6 +200,38 @@ describe('emulate tab', () => {
         '#last-input'
       ]);
     });
+
+    it('backwards', async () => {
+      // given
+      const firstInput = await (await loader.getHarness(MatInputHarness.with({ selector: '#first-input' }))).host();
+      const secondInput = await (await loader.getHarness(MatInputHarness.with({ selector: '#second-input' }))).host();
+      await secondInput.focus();
+
+      // when
+      await emulateTab.backwards();
+
+      // then
+      expect(await firstInput.isFocused()).toBe(true);
+    });
+
+    it('tab into input with value should select everything', async () => {
+      // given
+      const firstInput = await (await loader.getHarness(MatInputHarness.with({ selector: '#first-input' })));
+      const secondInput = await (await loader.getHarness(MatInputHarness.with({ selector: '#second-input' })));
+      await secondInput.setValue('something');
+      await firstInput.focus();
+
+      // when
+      await emulateTab();
+
+      // then
+      const activeElement = document.activeElement as HTMLInputElement;
+      if (!(activeElement.id === 'second-input' && activeElement instanceof HTMLInputElement)) {
+        throw new Error('expected an HTMLInputElement with the id "second-input" to be focused');
+      }
+      expect(activeElement.selectionStart).toBe(0, 'selection start');
+      expect(activeElement.selectionEnd).toBeGreaterThan(0, 'selection end');
+    });
   });
 
   describe('in browsers which do support offsetHeight', () => {

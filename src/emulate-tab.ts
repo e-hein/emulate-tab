@@ -14,6 +14,7 @@ export namespace emulateTab {
   export const toPreviousElement = () => to(getPreviousElement(activeElement()));
   export const toNextElement = () => emulateTab();
   export const backwards = toPreviousElement;
+  export const findSelectableElements = findAllElementsSelectableByTab;
 }
 
 function activeElement(): HTMLElement | undefined {
@@ -87,6 +88,9 @@ function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement) 
 
 function emulateEventsAtTabTarget(target: HTMLElement) {
   target.focus();
+  if (target instanceof HTMLInputElement) {
+    target.selectionStart = 0;
+  }
   target.dispatchEvent(new FocusEvent('focus'));
 
   const tabKeyup = createTabEvent('keyup');
