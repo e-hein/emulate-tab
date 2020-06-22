@@ -6,6 +6,7 @@ const path = require('path');
 const defaultOpts = {
   fatal: true,
 }
+
 const bundlesDir = path.join(__dirname, 'dist/bundles');
 
 build();
@@ -16,8 +17,6 @@ buildBundle('umd');
 buildBundle('cjs');
 buildDefaultBundle('es2015');
 buildMinBundleFromDefault();
-shelljs.exec(`npm pack ../ | tail -1`, { ...defaultOpts, cwd: path.join(__dirname, 'tmp')});
-shelljs.mv('tmp/emulate-tab*.tgz', 'tmp/emulate-tab.tgz');
 
 function build(tsconfig) {
   let cmd = 'node ./node_modules/.bin/tsc';

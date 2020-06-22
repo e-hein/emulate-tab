@@ -7,7 +7,9 @@
     "test": "node test.js",
     "build": "tsc",
     "prebuild:all": "rm -rf dist; rm -rf tmp",
-    "build:all": "node build.js"
+    "build:all": "node build.js",
+    "postbuild:all": "npm run pack",
+    "pack": "node pack.js"
   },
   "repository": {
     "type": "git",
