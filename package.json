@@ -6,14 +6,8 @@
   "scripts": {
     "test": "node test.js",
     "build": "tsc",
-    "build:amd": "tsc -p tsconfig.amd.json",
-    "build:umd": "tsc -p tsconfig.umd.json",
-    "prebuild:all": "rm -rf dist",
-    "build:all": "npm run build",
-    "postbuild:all": "npm run build:all:amd",
-    "build:all:amd": "npm run build:amd",
-    "postbuild:all:amd": "npm run build:all:umd",
-    "build:all:umd": "npm run build:umd"
+    "prebuild:all": "rm -rf dist; rm -rf tmp",
+    "build:all": "node build.js"
   },
   "repository": {
     "type": "git",
@@ -30,8 +24,10 @@
   },
   "homepage": "https://github.com/e-hein/emulate-tab#readme",
   "devDependencies": {
+    "rollup": "^2.18.0",
     "shelljs": "^0.8.4",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "uglify-js": "^3.10.0"
   },
   "files": [
     "dist/**/*.*"
