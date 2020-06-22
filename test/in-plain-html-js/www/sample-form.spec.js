@@ -1,14 +1,17 @@
-function waitFor(description, test, retryLimit = 10, milliseconsBetweenRetries = 50) {
-  let currentTry = 0;
+function waitFor(description, test, retryLimit = 20, milliseconsBetweenRetries = 200) {
+  let currentTry = 1;
   const waitLonger = (done) => {
     const ready = test();
     if (ready) return done();
-    if (currentTry++ > retryLimit) {
+    if (currentTry > 3) {
+      console.log('css not ready (' + currentTry + ')');
+    }
+    if (++currentTry > retryLimit) {
       throw new Error('failed to wait for ' + description);
     }
     setTimeout(() => waitLonger(done), milliseconsBetweenRetries);
   }
-  return new Promise(waitLonger);
+  return new Promise(resolve => waitLonger(resolve));
 }
 
 describe('sample form', () => {
@@ -18,14 +21,14 @@ describe('sample form', () => {
     document.body.appendChild(testContent);
   });
 
-  beforeEach(() => {
+  beforeEach((done) => {
     testContent.innerHTML = __html__['sample-form.html'];
 
-    return waitFor('css', () => {
+    waitFor('css', () => {
       const hiddenInput = document.getElementById('hidden-input');
       return !!hiddenInput && getComputedStyle(hiddenInput).display === 'none';
-    });
-  });
+    }).then(done);
+  }, 10000);
 
   it('should find expected inputs (and not hidden/disabled...)', () => {
     const selectableElementIds = emulateTab.findSelectableElements().map((e) => e.id || e.className);
