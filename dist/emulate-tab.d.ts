@@ -5,6 +5,7 @@ export declare namespace emulateTab {
     const toPreviousElement: () => Promise<void>;
     const toNextElement: () => Promise<void>;
     const backwards: () => Promise<void>;
+    const findSelectableElements: typeof findAllElementsSelectableByTab;
 }
 declare function emulateTabFrom(source?: HTMLElement): {
     toPreviousElement: () => Promise<void>;

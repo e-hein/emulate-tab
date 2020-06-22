@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.findAllElementsSelectableByTab = exports.emulateTab = void 0;
 var possibleSizeAttributeKeys = new Array('offsetHeight', 'scrollHeight', 'clientHeight');
 function emulateTab() {
@@ -50,14 +50,14 @@ function emulateTabFrom(source) {
         toPreviousElement: toPreviousElement,
         backwards: toPreviousElement,
         to: function (target) { return emulateTabFromSourceToTarget(source, target); },
-        toNextElement: function () { return emulateTabFromSourceToTarget(source, getNextElement(source)); },
+        toNextElement: function () { return emulateTabFromSourceToTarget(source, getNextElement(source)); }
     };
 }
 function createTabEvent(type) {
     return new KeyboardEvent(type, {
         code: 'Tab',
         key: 'Tab',
-        bubbles: true,
+        bubbles: true
     });
 }
 function emulateTabFromSourceToTarget(source, target) {

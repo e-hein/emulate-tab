@@ -1,7 +1,6 @@
-define(["require", "exports"], function (require, exports) {
-    "use strict";
-    exports.__esModule = true;
-    exports.findAllElementsSelectableByTab = exports.emulateTab = void 0;
+var emulateTab = (function () {
+    'use strict';
+
     var possibleSizeAttributeKeys = new Array('offsetHeight', 'scrollHeight', 'clientHeight');
     function emulateTab() {
         var activeElement = document.activeElement;
@@ -9,14 +8,14 @@ define(["require", "exports"], function (require, exports) {
         var nextElement = getNextElement(source);
         return emulateTabFrom(source).to(nextElement);
     }
-    exports.emulateTab = emulateTab;
     (function (emulateTab) {
         emulateTab.from = emulateTabFrom;
         emulateTab.to = function (target) { return emulateTabFrom(activeElement()).to(target); };
         emulateTab.toPreviousElement = function () { return emulateTab.to(getPreviousElement(activeElement())); };
         emulateTab.toNextElement = function () { return emulateTab(); };
         emulateTab.backwards = emulateTab.toPreviousElement;
-    })(emulateTab = exports.emulateTab || (exports.emulateTab = {}));
+        emulateTab.findSelectableElements = findAllElementsSelectableByTab;
+    })(emulateTab || (emulateTab = {}));
     function activeElement() {
         var activeElement = document.activeElement;
         return activeElement instanceof HTMLElement ? activeElement : undefined;
@@ -80,6 +79,9 @@ define(["require", "exports"], function (require, exports) {
     }
     function emulateEventsAtTabTarget(target) {
         target.focus();
+        if (target instanceof HTMLInputElement) {
+            target.selectionStart = 0;
+        }
         target.dispatchEvent(new FocusEvent('focus'));
         var tabKeyup = createTabEvent('keyup');
         target.dispatchEvent(tabKeyup);
@@ -105,7 +107,6 @@ define(["require", "exports"], function (require, exports) {
             .reduce(function (all, more) { return all.concat(more.elements); }, new Array());
         return selectableElements;
     }
-    exports.findAllElementsSelectableByTab = findAllElementsSelectableByTab;
     function hasValidTabIndex(element) {
         return typeof element.tabIndex === 'number' && element.tabIndex >= 0;
     }
@@ -185,4 +186,9 @@ define(["require", "exports"], function (require, exports) {
             return b.tabIndex;
         throw new Error('same tab index for two groups');
     }
-});
+
+    var emulateTab$1 = emulateTab;
+
+    return emulateTab$1;
+
+}());

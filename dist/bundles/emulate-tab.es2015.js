@@ -1,14 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllElementsSelectableByTab = exports.emulateTab = void 0;
 var possibleSizeAttributeKeys = new Array('offsetHeight', 'scrollHeight', 'clientHeight');
-function emulateTab() {
+export function emulateTab() {
     var activeElement = document.activeElement;
     var source = activeElement instanceof HTMLElement ? activeElement : document.body;
     var nextElement = getNextElement(source);
     return emulateTabFrom(source).to(nextElement);
 }
-exports.emulateTab = emulateTab;
 (function (emulateTab) {
     emulateTab.from = emulateTabFrom;
     emulateTab.to = function (target) { return emulateTabFrom(activeElement()).to(target); };
@@ -16,7 +12,7 @@ exports.emulateTab = emulateTab;
     emulateTab.toNextElement = function () { return emulateTab(); };
     emulateTab.backwards = emulateTab.toPreviousElement;
     emulateTab.findSelectableElements = findAllElementsSelectableByTab;
-})(emulateTab = exports.emulateTab || (exports.emulateTab = {}));
+})(emulateTab || (emulateTab = {}));
 function activeElement() {
     var activeElement = document.activeElement;
     return activeElement instanceof HTMLElement ? activeElement : undefined;
@@ -50,14 +46,14 @@ function emulateTabFrom(source) {
         toPreviousElement: toPreviousElement,
         backwards: toPreviousElement,
         to: function (target) { return emulateTabFromSourceToTarget(source, target); },
-        toNextElement: function () { return emulateTabFromSourceToTarget(source, getNextElement(source)); },
+        toNextElement: function () { return emulateTabFromSourceToTarget(source, getNextElement(source)); }
     };
 }
 function createTabEvent(type) {
     return new KeyboardEvent(type, {
         code: 'Tab',
         key: 'Tab',
-        bubbles: true,
+        bubbles: true
     });
 }
 function emulateTabFromSourceToTarget(source, target) {
@@ -91,7 +87,7 @@ function emulateEventsAtTabTarget(target) {
     }
     catch (e) { }
 }
-function findAllElementsSelectableByTab() {
+export function findAllElementsSelectableByTab() {
     var allElements = Array.from(document.querySelectorAll('*')).filter(isHtmlElement);
     initIsVisibleOnce();
     var tabGroups = allElements
@@ -108,7 +104,6 @@ function findAllElementsSelectableByTab() {
         .reduce(function (all, more) { return all.concat(more.elements); }, new Array());
     return selectableElements;
 }
-exports.findAllElementsSelectableByTab = findAllElementsSelectableByTab;
 function hasValidTabIndex(element) {
     return typeof element.tabIndex === 'number' && element.tabIndex >= 0;
 }

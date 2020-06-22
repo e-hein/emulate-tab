@@ -24,6 +24,7 @@
         emulateTab.toPreviousElement = function () { return emulateTab.to(getPreviousElement(activeElement())); };
         emulateTab.toNextElement = function () { return emulateTab(); };
         emulateTab.backwards = emulateTab.toPreviousElement;
+        emulateTab.findSelectableElements = findAllElementsSelectableByTab;
     })(emulateTab = exports.emulateTab || (exports.emulateTab = {}));
     function activeElement() {
         var activeElement = document.activeElement;
@@ -88,6 +89,9 @@
     }
     function emulateEventsAtTabTarget(target) {
         target.focus();
+        if (target instanceof HTMLInputElement) {
+            target.selectionStart = 0;
+        }
         target.dispatchEvent(new FocusEvent('focus'));
         var tabKeyup = createTabEvent('keyup');
         target.dispatchEvent(tabKeyup);
