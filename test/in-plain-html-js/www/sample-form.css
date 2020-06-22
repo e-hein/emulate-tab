@@ -1,0 +1,18 @@
+label {
+  display: inline-block;
+  width: 15em;
+  padding-right: .5em;
+  text-align: right;
+}
+
+.hidden {
+  display: none;
+}
+
+.collapsed {
+  visibility: collapse;
+}
+
+label + div {
+  display: inline-block;
+}
