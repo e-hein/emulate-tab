@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/e-hein/emulate-tab#readme",
   "devDependencies": {
+    "chalk": "^4.1.0",
     "rollup": "^2.18.0",
     "shelljs": "^0.8.4",
     "typescript": "^3.9.5",
