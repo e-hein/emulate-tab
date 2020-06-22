@@ -1,4 +1,4 @@
-function waitFor(description, test, retryLimit = 10, milliseconsBetweenRetries = 10) {
+function waitFor(description, test, retryLimit = 10, milliseconsBetweenRetries = 50) {
   let currentTry = 0;
   const waitLonger = (done) => {
     const ready = test();
