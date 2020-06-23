@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="theme/demo-base.css">
+    <link rel="stylesheet" href="settings.css">
+  </head>
+  <body>
+    <form onsubmit="event.preventDefault(); useSelected(event)">
+      <h1>privacy settings</h1>
+      <p>
+      This site will use content from other sites to improve user experience:
+      </p>
+
+      <table>
+        <tbody id="settings-table"></tbody>
+      </table>
+      <div class="button-bar">
+        <button type="submit">accept selected</button>
+        <button type="button" onclick="rejectAll(event)">reject all</button>
+        <button type="button" onclick="acceptAll(event)">accept all</button>
+      </div>
+    </form>
+    <div class="hidden">
+      <table><tbody id="settings-template">
+        <tr class="{{lineClass}}" onclick="this.firstChild.firstChild.checked = !this.firstChild.firstChild.checked"><td class="accept"><input onclick="this.checked = !this.checked" type="checkbox" id="{{id}}" /></td><td>
+          <h3>{{title}}</h3>
+          <ul>
+            <li>{{effect}}</li>
+            <li>{{description}}</li>
+          </ul>
+        </td></tr>
+      </tbody></table>
+      <script src="./privacy-settings.js"></script>
+      <script src="./settings.js"></script>
+    </div>
+    <div class="comment">Yeha, it took 1 hour to create this live sample page and 1 day to respect <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation">GDPR</a> for that page</div>
+  </body>
+</html>

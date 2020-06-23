@@ -1,0 +1,35 @@
+{
+  "name": "emulate-tab-demo",
+  "license": "MIT",
+  "scripts": {
+    "build": "DEBUG=demo-build* node build.js",
+    "build_watch": "npm-watch build",
+    "start": "http-server dist"
+  },
+  "watch": {
+    "build": {
+      "patterns": [
+        "build.js",
+        "src",
+        "../test/in-plain-html-js/www",
+        "../test/in-angular-material/dist",
+        "../README.md"
+      ],
+      "extensions": "*",
+      "quiet": false,
+      "inherit": false,
+      "verbose": true
+    }
+  },
+  "devDependencies": {
+    "debug": "^4.1.1",
+    "http-server": "^0.12.3",
+    "marked": "^1.1.0",
+    "npm-watch": "^0.6.0",
+    "shelljs": "^0.8.4",
+    "supports-color": "^7.1.0"
+  },
+  "dependencies": {
+    "prismjs": "^1.20.0"
+  }
+}

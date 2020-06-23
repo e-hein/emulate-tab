@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="./theme/demo-base.css" />
+    <link rel="stylesheet" href="libs/prism-coy.css" />
+    <script src="libs/marked.min.js"></script>
+    <script src="libs/prism.js"></script>
+    <script src="libs/prism-javascript.min.js"></script>
+    <script src="libs/prism-typescript.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script>
+      function load(url) {
+        return new Promise(resolve => {
+          const request = new XMLHttpRequest();
+          request.addEventListener('data', (chunk) => readmeMd += chunk);
+          request.addEventListener('load', (ev) => {
+            console.log('load', ev)
+            let result = ev.target.responseText;
+            resolve(result);
+          });
+          request.open('GET', url);
+          request.send();
+        });
+      }
+
+      let readmeMd = '';
+      load('README.md').then((contents) => {
+        let md = contents;
+        if (!document.location.href.includes('shieldsOk=true')) {
+          md = md.replace(/!\[.*?\(https:\/\/img\.shields\.io\/([^\]]*?)\)/g, (match, m2) => {
+            return '-- no cookie: ' + m2 +' --';
+          });
+        }
+        const contentOutput = document.getElementById('content');
+        const mdBaseUrl = 'https://github.com/e-hein/emulate-tab/tree/master/';
+        contentOutput.innerHTML = marked(md)
+          .replace(/<a/g, '<a target="_blank"')
+          .replace(/<a[^>]+href="(?!http)/g, (match) => {
+            return match.replace(/href="\/?/, 'href="' + mdBaseUrl);
+          });
+        Prism.highlightAll();
+      });
+    </script>
+  </body>
+</html>

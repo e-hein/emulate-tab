@@ -1,0 +1,44 @@
+.hidden {
+  display: none;
+}
+td.accept {
+  text-align: right;
+  vertical-align: top;
+  padding-top: 2px;
+}
+h3 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  line-height: 1em;
+}
+ul {
+  margin-top: .5em;
+  padding-top: 0;
+}
+
+.required h3 { 
+  color: red;
+}
+
+.required input {
+  border-color: red;
+}
+
+#settings-table tr {
+  cursor: pointer;
+}
+
+#settings-table a {
+  font-weight: bold;
+  font-size: larger;
+}
+
+.comment {
+  font-style: italic;
+}
+.comment::before {
+  content: '"';
+}
+.comment::after {
+  content: '"';
+}

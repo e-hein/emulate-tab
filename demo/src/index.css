@@ -1,0 +1,30 @@
+body {
+  padding: 0px;
+  overflow-y: hidden;
+}
+
+body > div {
+  background-color: blue;
+  display: flex;
+  align-items: stretch;
+}
+
+body a, span.spacer {
+  display: inline-block;
+  padding: .5em;
+  color: white;
+  border-right: 1px solid white;
+  font-weight: bold;
+  text-decoration: none;
+  min-height: 1em;
+}
+
+span.spacer.grow {
+  flex-grow: 1;
+}
+
+iframe {
+  width: 100%;
+  height: calc(100% - 60px);
+  border: none;
+}
