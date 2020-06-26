@@ -44,7 +44,6 @@ function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement, 
       if (ev === tabKeydown) {
         if (source instanceof HTMLElement) {
           source.blur();
-          source.dispatchEvent(new FocusEvent('blur'));
         }
 
         emulateEventsAtTabTarget(target, direction);
@@ -71,7 +70,6 @@ function emulateEventsAtTabTarget(target: HTMLElement, direction: TabDirection) 
   if (target instanceof HTMLInputElement) {
     target.selectionStart = 0;
   }
-  target.dispatchEvent(new FocusEvent('focus'));
 
   const tabKeyup = createTabEvent('keyup', direction);
   target.dispatchEvent(tabKeyup);

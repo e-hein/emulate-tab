@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as tsNode from 'ts-node';
 import * as fs from 'fs';
 import * as emulateTab from '../../../dist';
+import { Server } from 'http';
 
 if (!emulateTab) {
   throw new Error('no emulate tab???');
@@ -92,5 +93,5 @@ app.get('/favicon.ico',
 );
 app.get('/:filename', serveFiles('html', 'text/html'));
 
-export const server = app.listen(port);
+export const server: Server = app.listen(port);
 console.log('app running on ' + port);
