@@ -4,7 +4,7 @@ export function waitFor(description: string, test: () => boolean, retryLimit = 2
     const ready = test();
     if (ready) return done();
     if (currentTry > 3) {
-      console.log('css not ready (' + currentTry + ')');
+      console.log(description + ' not ready (' + currentTry + ')');
     }
     if (++currentTry > retryLimit) {
       throw new Error('failed to wait for ' + description);
