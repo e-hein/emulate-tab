@@ -13,7 +13,7 @@ Interactive demo: https://emulate-tab.net-root.de
 Installation
 ------------
 ```npm i emulate-tab```  
-or download prebuild js package from [dist branch](https://github.com/e-hein/emulate-tab/tree/dist/dist/bundles)
+or download unpackaged javascript files from our [releases](https://github.com/e-hein/emulate-tab/releases)
 
 Usage
 -----

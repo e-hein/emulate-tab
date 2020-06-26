@@ -1,6 +1,10 @@
 changes
 =======
 
+1.1.1
+-----
+- fix double focus events
+
 1.1.0
 -----
 - emulateTab now selects existing input field content
