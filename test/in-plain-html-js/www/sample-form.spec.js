@@ -214,6 +214,32 @@ describe('sample form', () => {
       expect(document.activeElement).toBe(firstInput);
 
       // cleanup
+      secondInput.removeEventListener('keydown', keydownListener);
+    });
+
+    it('tab forwards', async () => {
+      // given
+      firstInput.focus();
+      const keySpy = jasmine.createSpy('keydown');
+      const blurSpy = spyOn(firstInput, 'blur').and.callThrough();
+      const focusSpy = spyOn(secondInput, 'focus').and.callThrough();
+      const keydownListener = (ev) => {
+        expect(blurSpy).not.toHaveBeenCalled();
+        expect(focusSpy).not.toHaveBeenCalled();
+        keySpy(ev);
+      }
+      firstInput.addEventListener('keydown', keydownListener);
+
+      // when
+      await emulateTab.forwards();
+
+      // then
+      expect(keySpy).toHaveBeenCalled();
+      expect(blurSpy).toHaveBeenCalled();
+      expect(focusSpy).toHaveBeenCalled();
+      expect(document.activeElement).toBe(secondInput);
+
+      // cleanup
       firstInput.removeEventListener('keydown', keydownListener);
     });
 

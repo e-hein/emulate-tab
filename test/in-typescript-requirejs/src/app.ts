@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as tsNode from 'ts-node';
 import * as fs from 'fs';
-import * as emulateTab from '../../../dist';
+import * as emulateTab from '../../../dist/emulate-tab';
 import { Server } from 'http';
 
 if (!emulateTab) {

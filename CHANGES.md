@@ -1,6 +1,11 @@
 changes
 =======
 
+1.1.2
+-----
+- fix amd bundle
+- adjust new api variant emulateTab.forward() to emulateTab.forwards()
+
 1.1.1
 -----
 - fix double focus events

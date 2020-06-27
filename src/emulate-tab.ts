@@ -21,7 +21,7 @@ export namespace emulateTab {
   export const toPreviousElement = () => to(getPreviousElement(activeElement()), 'backward');
   export const toNextElement = () => emulateTab();
   export const backwards = toPreviousElement;
-  export const forward = toNextElement;
+  export const forwards = toNextElement;
   export const findSelectableElements = findAllElementsSelectableByTab;
 }
 

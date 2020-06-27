@@ -1,8 +1,7 @@
 {
   "name": "emulate-tab",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "emulate tab key without selector or dependencies",
-  "main": "dist/index.js",
   "scripts": {
     "test": "node test.js",
     "build": "tsc",
@@ -38,11 +37,17 @@
     "chalk": "^4.1.0",
     "markdown": "^0.5.0",
     "rollup": "^2.18.0",
+    "rollup-plugin-commonjs": "^10.1.0",
     "shelljs": "^0.8.4",
     "typescript": "^3.9.5",
     "uglify-js": "^3.10.0"
   },
+  "main": "dist/emulate-tab.js",
+  "types": "dist/emulate-tab.d.ts",
   "files": [
     "dist/**/*.*"
-  ]
+  ],
+  "dependencies": {
+    "rollup-plugin-uglify": "^6.0.4"
+  }
 }

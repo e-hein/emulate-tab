@@ -10,12 +10,12 @@ const defaultOpts = {
 const bundlesDir = path.join(__dirname, 'dist/bundles');
 
 build();
+build(`tsconfig.es.json`);
 shelljs.mkdir('-p', bundlesDir);
-buildBundle('amd');
-buildBundle('es2015');
 buildBundle('umd');
 buildBundle('cjs');
-buildDefaultBundle('es2015');
+buildBundle('amd');
+buildDefaultBundle();
 buildMinBundleFromDefault();
 
 function build(tsconfig) {
@@ -25,12 +25,13 @@ function build(tsconfig) {
 }
 
 function buildBundle(type) {
-  build(`tsconfig.${type}.json`);
-  shelljs.cp(`tmp/${type}/emulate-tab.js`, path.join(bundlesDir, `emulate-tab.${type}.js`));
+//  build(`tsconfig.${type}.json`);
+//  shelljs.cp(`tmp/${type}/emulate-tab.js`, path.join(bundlesDir, `emulate-tab.${type}.js`));
+  shelljs.exec(`node node_modules/.bin/rollup tmp/es/emulate-tab.js --format ${type} --name "emulateTab" --output.exports "named" --file dist/bundles/emulate-tab.${type}.js`, defaultOpts);
 }
 
-function buildDefaultBundle(type) {
-  shelljs.exec(`node node_modules/.bin/rollup tmp/${type}/default-only.js --format iife --name "emulateTab" --output.exports "default"  --file dist/bundles/emulate-tab.js`, defaultOpts);
+function buildDefaultBundle() {
+  shelljs.exec(`node node_modules/.bin/rollup tmp/es/default-only.js --format iife --name "emulateTab" --output.exports "default"  --file dist/bundles/emulate-tab.js`, defaultOpts);
 }
 
 function buildMinBundleFromDefault() {

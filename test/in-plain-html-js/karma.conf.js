@@ -15,14 +15,14 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       { pattern: '**/*.css', included: false, served: true },
-      { pattern: '../node_modules/emulate-tab/dist/bundles/emulate-tab.min.js', included: true },
+      { pattern: '../../../dist/bundles/emulate-tab.min.js', included: true },
       '**/*.html',
       '**/*.@(spec).js',
     ],
 
     proxies: {
       '/sample-form.css': '/base/sample-form.css',
-      '/libs/emulate-tab.*': '/base/libs/emulate-tab.',
+      '/libs': '/base/libs',
     },
 
     // list of files / patterns to exclude

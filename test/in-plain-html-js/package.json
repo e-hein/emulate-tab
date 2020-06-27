@@ -4,19 +4,19 @@
   "description": "test emulate-tab in plain html",
   "main": "test.js",
   "scripts": {
-    "start": "node -r ts-node/register src/app.ts",
-    "watch_start": "npm-watch start",
     "test": "karma start",
-    "install-emulate-tab": "npm i ../../tmp/emulate-tab.latest.tgz",
-    "uninstall-emulate-tab": "npm i ../../tmp/emulate-tab.latest.tgz",
-    "reinstall-emulate-tab": "npm run uninstall-emulate-tab",
-    "postreinstall-emulate-tab": "npm run install-emulate-tab",
-    "pretest:once": "npm run reinstall-emulate-tab",
-    "test:once": "karma start --browsers=ChromeHeadless,FirefoxHeadless --single-run"
+    "test:once": "karma start --browsers=ChromeHeadless,FirefoxHeadless --single-run",
+    "build": "DEBUG=demo-build* node build.js",
+    "build_watch": "npm-watch build"
   },
   "watch": {
-    "start": {
-      "patterns": "www/**.*"
+    "build": {
+      "patterns": [
+        "../../dist/bundles"
+      ],
+      "quiet": false,
+      "inherit": false,
+      "verbose": true
     }
   },
   "author": "Emanuel Hein",
@@ -36,7 +36,5 @@
     "npm-watch": "^0.6.0",
     "shelljs": "^0.8.4"
   },
-  "dependencies": {
-    "emulate-tab": "file:../../tmp/emulate-tab.latest.tgz"
-  }
+  "dependencies": {}
 }
