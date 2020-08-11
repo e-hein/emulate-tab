@@ -3,8 +3,7 @@
   "license": "MIT",
   "scripts": {
     "build": "DEBUG=demo-build* node build.js",
-    "build_watch": "npm-watch build",
-    "start": "http-server dist"
+    "build_watch": "watch-npm build"
   },
   "watch": {
     "build": {
@@ -23,13 +22,12 @@
   },
   "devDependencies": {
     "debug": "^4.1.1",
-    "http-server": "^0.12.3",
     "marked": "^1.1.0",
-    "npm-watch": "^0.6.0",
     "shelljs": "^0.8.4",
-    "supports-color": "^7.1.0"
+    "supports-color": "^7.1.0",
+    "watch-npm": "^1.0.1"
   },
   "dependencies": {
-    "prismjs": "^1.20.0"
+    "prismjs": "^1.21.0"
   }
 }
