@@ -11,7 +11,21 @@
     "coverage": "ng test --code-coverage --watch false --browsers 'ChromeHeadless,FirefoxHeadless' --reporters 'mocha,kjhtml,fail-fast'",
     "lint": "ng lint",
     "e2e": "ng e2e --devServerTarget emulate-tab-in-angular-material:serve",
-    "protractor": "ng e2e --webdriver-update false --protractor-config e2e/protractor-headless.conf.js"
+    "protractor": "ng e2e --webdriver-update false --protractor-config e2e/protractor-headless.conf.js",
+    "protractor_watch": "watch-npm protractor"
+  },
+  "watch": {
+    "protractor": {
+      "patterns": [
+        "src/**/*.*",
+        "e2e/**/*.*",
+        "../../src/*.*"
+      ],
+      "extensions": "*",
+      "quiet": false,
+      "inherit": false,
+      "verbose": true
+    }
   },
   "private": true,
   "dependencies": {
@@ -51,6 +65,7 @@
     "ts-node": "~8.3.0",
     "tsconfig-paths": "^3.9.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "watch-npm": "^1.0.1"
   }
 }
