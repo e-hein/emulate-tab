@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { emulateTab as origEmulateTab, findAllElementsSelectableByTab } from 'emulate-tab';
+import { emulateTab as origEmulateTab } from 'emulate-tab';
 import { AppComponent } from './app.component';
 import { expectNotToHaveThrownAnything } from '@app/testing';
 
@@ -60,7 +60,7 @@ function beforeAllMockHeightAttribute(attrName: string) {
 }
 
 function findAllSelectableIdents() {
-  const selectableElements = findAllElementsSelectableByTab();
+  const selectableElements = origEmulateTab.findSelectableElements();
   const selectableElementIdents = selectableElements.map((e) => (e.id && '#' + e.id) || e.title || e.className);
   // console.log('selectableElements', selectableElementIdents);
   return selectableElementIdents;

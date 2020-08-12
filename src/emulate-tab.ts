@@ -2,80 +2,135 @@ const possibleSizeAttributeKeys = new Array<keyof HTMLElement>(
   'offsetHeight', 'scrollHeight', 'clientHeight',
 );
 
+const shiftModifier = true;
+
 interface HTMLElementWithValidTabIndex extends HTMLElement {
   tabIndex: number;
 }
 
-export type TabDirection = 'forward' | 'backward';
-
-export function emulateTab(): Promise<void> {
+/**
+ * emulate tab keyboard events and default action (switch to next element)
+ * 
+ * fist:
+ * - dispatch tab keydown event at active element
+ * 
+ * then emulate default action (if not prevented):
+ * - blur on active element
+ * - skip keypress action (it's between element switch so there is no target)
+ * - find next element in selectable elemetns
+ * - focus on next element
+ * - tab keyup on next element
+ * 
+ * or (if default action is prevented):
+ * - tab keypress on active element
+ * - tab keyup on active elment
+ * 
+ * @returns true if switched elemenet and false if default action had been prevented
+ */
+export function emulateTab(): boolean {
   const source = activeElement() || document.body;
   const target = getNextElement(source);
 
-  return emulateTabFromSourceToTarget(source, target, 'forward');
+  return emulateTabFromSourceToTarget(source, target);
 }
 
 export namespace emulateTab {
+  /**
+   * emulate tab from a given element (default is active element)
+   * 
+   * @returns methods to select tab target
+   */
   export const from = emulateTabFrom;
-  export const to = (target: HTMLElement, direction: TabDirection = 'forward') => emulateTabFrom(activeElement()).to(target, direction);
-  export const toPreviousElement = () => to(getPreviousElement(activeElement()), 'backward');
-  export const toNextElement = () => emulateTab();
-  export const backwards = toPreviousElement;
-  export const forwards = toNextElement;
-  export const findSelectableElements = findAllElementsSelectableByTab;
+
+  /**
+   * emulate tab from active element to a given target
+   * 
+   * @param target element to switch to
+   * @param sendKeyEventsWithShiftModifier like shift tab would do
+   * @returns true if switched elemenet and false if default action had been prevented
+   */
+  export const to = (target: HTMLElement, sendKeyEventsWithShiftModifier = false) => emulateTabFrom(activeElement()).to(target, sendKeyEventsWithShiftModifier);
+
+  /**
+   * emulate tab to previous element
+   * 
+   * @returns true if switched elemenet and false if default action had been prevented
+   */
+  export const backwards = () => to(getPreviousElement(activeElement()), shiftModifier);
+
+  /**
+   * alias for emulateTab() that is more precise about it's direction
+   * 
+   * @returns true if switched elemenet and false if default action had been prevented
+   */
+  export const forwards = () => emulateTab();
+
+  /**
+   * find all elements that are selectable by tab
+   */
+  export const findSelectableElements: () => HTMLElement[] = findAllElementsSelectableByTab;
 }
 
 function emulateTabFrom(source: HTMLElement = document.body) {
-  const toPreviousElement = () => emulateTabFromSourceToTarget(source, getPreviousElement(), 'backward');
   return {
-    toPreviousElement,
-    backwards: toPreviousElement,
-    to: (target: HTMLElement, direction: TabDirection = 'forward') => emulateTabFromSourceToTarget(source, target, direction),
-    toNextElement: () => emulateTabFromSourceToTarget(source, getNextElement(source), 'backward'),
+    /**
+     * emulate tab to the element before the starting element (which is the active element by default)
+     * 
+     * @returns true if switched elemenet and false if default action had been prevented
+     */
+    toPreviousElement: () => emulateTabFromSourceToTarget(source, getPreviousElement(), shiftModifier),
+
+    /**
+     * emulate tab to the element after the starting element (which is the active element by default)
+     * 
+     * @returns true if switched elemenet and false if default action had been prevented
+     */
+    toNextElement: () => emulateTabFromSourceToTarget(source, getNextElement(source)),
+
+    /**
+     * emulate tab to a custom given element
+     * 
+     * @param target element after tab
+     * @param sendKeyEventsWithShiftModifier like shift tab would do
+     * @returns true if switched elemenet and false if default action had been prevented
+     */
+    to: (target: HTMLElement, sendKeyEventsWithShiftModifier = false) => emulateTabFromSourceToTarget(source, target, sendKeyEventsWithShiftModifier),
   };
 }
 
-function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement, direction: TabDirection) {
-  return new Promise<void>(done => {
-    const tabKeydown = createTabEvent('keydown', direction);
-
-    const tabListener = (ev: KeyboardEvent) => {
-      document.body.removeEventListener('keydown', tabListener);
-      if (ev === tabKeydown) {
-        if (source instanceof HTMLElement) {
-          source.blur();
-        }
-
-        emulateEventsAtTabTarget(target, direction);
-        done();
-      }
-    };
-
-    document.body.addEventListener('keydown', tabListener);
-    source.dispatchEvent(tabKeydown);
-  });
+function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement, sendKeyEventsWithShiftModifier = false) {
+  const executeDefaultAction = source.dispatchEvent(createTabEvent('keydown', sendKeyEventsWithShiftModifier));
+  if (executeDefaultAction) {
+    source.blur();
+    target.focus();
+    if (document.activeElement !== target) {
+      try {
+        (document as any).activeElement = target;
+      } catch (e) {
+        console.warn('could not switch active element');
+      }  
+    }
+    if (target instanceof HTMLInputElement) {
+      target.selectionStart = 0;
+    }
+  
+    const tabKeyup = createTabEvent('keyup', sendKeyEventsWithShiftModifier);
+    target.dispatchEvent(tabKeyup);
+    return true;
+  } else {
+    source.dispatchEvent(createTabEvent('keypress', sendKeyEventsWithShiftModifier));
+    source.dispatchEvent(createTabEvent('keyup', sendKeyEventsWithShiftModifier));
+    return false;
+  }
 }
 
-function createTabEvent(type: 'keydown' | 'keyup', direction: TabDirection) {
+function createTabEvent(type: 'keydown' |  'keypress' | 'keyup', sendKeyEventsWithShiftModifier = false) {
   return new KeyboardEvent(type, {
     code: 'Tab',
     key: 'Tab',
     bubbles: true,
-    shiftKey: direction === 'backward',
+    shiftKey: sendKeyEventsWithShiftModifier,
   });
-}
-
-function emulateEventsAtTabTarget(target: HTMLElement, direction: TabDirection) {
-  target.focus();
-  if (target instanceof HTMLInputElement) {
-    target.selectionStart = 0;
-  }
-
-  const tabKeyup = createTabEvent('keyup', direction);
-  target.dispatchEvent(tabKeyup);
-  try {
-    (document as any).activeElement = target;
-  } catch (e) {}
 }
 
 function activeElement(): HTMLElement | undefined {
@@ -107,7 +162,7 @@ function getNextElement(lastElement: HTMLElement = document.body) {
   return nextElement;
 }
 
-export function findAllElementsSelectableByTab() {
+function findAllElementsSelectableByTab() {
   const allElements = Array.from(document.querySelectorAll('*')).filter(isHtmlElement);
   initIsVisibleOnce();
   const tabGroups = allElements
