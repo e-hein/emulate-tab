@@ -196,6 +196,7 @@ describe('emulate tab', () => {
         '#input-before-plain-link-without-href', '#input-after-plain-link-without-href',
         '#input-before-hidden-child-input', '#input-after-hidden-child-input',
         '#input-before-collapsed-child-input', '#input-after-collapsed-child-input',
+        '#input-preventing-default-action',
 
         '#last-input'
       ]);
@@ -231,6 +232,19 @@ describe('emulate tab', () => {
       }
       expect(activeElement.selectionStart).toBe(0, 'selection start');
       expect(activeElement.selectionEnd).toBeGreaterThan(0, 'selection end');
+    });
+
+    it('should not tab out of input that prevents default actions', async () => {
+      // given
+      const inputPreventingDefaultAction = await (await loader.getHarness(MatInputHarness.with({ selector: '#input-preventing-default-action' })));
+      await inputPreventingDefaultAction.focus();
+
+      // when
+      await emulateTab();
+
+      // then
+      const activeElement = document.activeElement as HTMLInputElement;
+      expect(activeElement.id).toBe('input-preventing-default-action');
     });
   });
 

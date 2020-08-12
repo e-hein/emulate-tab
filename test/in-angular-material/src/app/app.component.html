@@ -57,6 +57,8 @@
 </div>
 <mat-form-field><mat-label>input after collapsed child input</mat-label><input id="input-after-collapsed-child-input" matInput /></mat-form-field>
 
+<mat-form-field><mat-label>input preventing default action</mat-label><input (keydown)="preventDefault($event)" id="input-preventing-default-action" matInput /></mat-form-field>
+
 <mat-form-field><mat-label>input with tabIndex 3</mat-label><input tabindex="3" id="input-with-tab-index-3" matInput /></mat-form-field>
 
 <mat-form-field><mat-label>input with tabIndex 2</mat-label><input tabindex="2" id="input-with-tab-index-2" matInput /></mat-form-field>

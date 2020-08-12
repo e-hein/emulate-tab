@@ -128,6 +128,7 @@ function createTabEvent(type: 'keydown' |  'keypress' | 'keyup', sendKeyEventsWi
   return new KeyboardEvent(type, {
     code: 'Tab',
     key: 'Tab',
+    cancelable: true,
     bubbles: true,
     shiftKey: sendKeyEventsWithShiftModifier,
   });
