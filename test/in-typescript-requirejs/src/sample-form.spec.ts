@@ -1,4 +1,4 @@
-import { emulateTab, findAllElementsSelectableByTab } from 'emulate-tab';
+import { emulateTab } from 'emulate-tab';
 import { waitFor } from './wait-for.model';
 
 describe('sample form', () => {
@@ -18,7 +18,7 @@ describe('sample form', () => {
   });
 
   it('should find expected inputs (and not hidden/disabled...)', () => {
-    const selectableElementIds = findAllElementsSelectableByTab().map((e) => e.id || e.className);
+    const selectableElementIds = emulateTab.findSelectableElements().map((e) => e.id || e.className);
     expect(selectableElementIds).toEqual([
       'input-with-tab-index-2',
       'input2-with-tab-index-2',
@@ -140,7 +140,7 @@ describe('sample form', () => {
       firstInput.addEventListener('keydown', keydownListener);
 
       // when
-      await emulateTab.toNextElement();
+      await emulateTab.forwards();
 
       // then
       expect(keySpy).toHaveBeenCalled();
@@ -218,7 +218,7 @@ describe('sample form', () => {
       secondInput.addEventListener('keydown', keydownListener);
 
       // when
-      await emulateTab.toPreviousElement();
+      await emulateTab.backwards();
 
       // then
       expect(keySpy).toHaveBeenCalled();
