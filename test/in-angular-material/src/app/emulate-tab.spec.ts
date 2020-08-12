@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { emulateTab as origEmulateTab, findAllElementsSelectableByTab } from 'emulate-tab';
+import { emulateTab as origEmulateTab } from 'emulate-tab';
 import { AppComponent } from './app.component';
 import { expectNotToHaveThrownAnything } from '@app/testing';
 
@@ -60,7 +60,7 @@ function beforeAllMockHeightAttribute(attrName: string) {
 }
 
 function findAllSelectableIdents() {
-  const selectableElements = findAllElementsSelectableByTab();
+  const selectableElements = origEmulateTab.findSelectableElements();
   const selectableElementIdents = selectableElements.map((e) => (e.id && '#' + e.id) || e.title || e.className);
   // console.log('selectableElements', selectableElementIdents);
   return selectableElementIdents;
@@ -196,6 +196,7 @@ describe('emulate tab', () => {
         '#input-before-plain-link-without-href', '#input-after-plain-link-without-href',
         '#input-before-hidden-child-input', '#input-after-hidden-child-input',
         '#input-before-collapsed-child-input', '#input-after-collapsed-child-input',
+        '#input-preventing-default-action',
 
         '#last-input'
       ]);
@@ -231,6 +232,19 @@ describe('emulate tab', () => {
       }
       expect(activeElement.selectionStart).toBe(0, 'selection start');
       expect(activeElement.selectionEnd).toBeGreaterThan(0, 'selection end');
+    });
+
+    it('should not tab out of input that prevents default actions', async () => {
+      // given
+      const inputPreventingDefaultAction = await (await loader.getHarness(MatInputHarness.with({ selector: '#input-preventing-default-action' })));
+      await inputPreventingDefaultAction.focus();
+
+      // when
+      await emulateTab();
+
+      // then
+      const activeElement = document.activeElement as HTMLInputElement;
+      expect(activeElement.id).toBe('input-preventing-default-action');
     });
   });
 

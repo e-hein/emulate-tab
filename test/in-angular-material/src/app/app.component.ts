@@ -17,6 +17,10 @@ export class AppComponent {
     return emulateTab.backwards();
   }
 
+  public preventDefault($event: KeyboardEvent) {
+    $event.preventDefault();
+  }
+
   public divClicked() {
     console.log('clicked');
   }
