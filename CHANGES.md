@@ -1,6 +1,14 @@
 changes
 =======
 
+1.2.0
+-----
+- **simplify API** use sync calls instead of async and remove triplicated methods
+
+1.1.3
+-----
+- fix security alerts from dev dependencies
+
 1.1.2
 -----
 - fix amd bundle
