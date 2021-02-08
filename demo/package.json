@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "debug": "^4.1.1",
-    "marked": "^1.1.0",
+    "marked": "^2.0.0",
     "shelljs": "^0.8.4",
     "supports-color": "^7.1.0",
     "watch-npm": "^1.0.1"
