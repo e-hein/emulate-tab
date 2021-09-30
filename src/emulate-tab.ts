@@ -110,7 +110,7 @@ function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement, 
         console.warn('could not switch active element');
       }  
     }
-    if (target instanceof HTMLInputElement) {
+    if (target instanceof HTMLInputElement && target.type !== 'number') {
       target.selectionStart = 0;
     }
   
