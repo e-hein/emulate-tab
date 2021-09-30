@@ -99,6 +99,7 @@ function emulateTabFrom(source: HTMLElement = document.body) {
 }
 
 function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement, sendKeyEventsWithShiftModifier = false) {
+  const selectableTypes = /text|password|search|tel|url/;
   const executeDefaultAction = source.dispatchEvent(createTabEvent('keydown', sendKeyEventsWithShiftModifier));
   if (executeDefaultAction) {
     source.blur();
@@ -110,7 +111,7 @@ function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement, 
         console.warn('could not switch active element');
       }  
     }
-    if (target instanceof HTMLInputElement && target.type !== 'number') {
+    if (target instanceof HTMLInputElement && selectableTypes.test(target.type)) {
       target.selectionStart = 0;
     }
   
