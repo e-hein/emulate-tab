@@ -1,5 +1,5 @@
 [![npm (tag)](https://img.shields.io/npm/v/emulate-tab/latest)](https://www.npmjs.com/package/emulate-tab)
-[![Travis (.org)](https://img.shields.io/travis/e-hein/emulate-tab?label=travis)](https://travis-ci.org/e-hein/emulate-tab)
+![test workflow](https://github.com/e-hein/emulate-tab/actions/workflows/test-coverage.yml/badge.svg)
 
 emulate tab
 ===========
@@ -42,8 +42,8 @@ none.
 
 Browser compatibility:
 ----------------------
-Automated tests for current Chrome and Firefox: 
-[![Travis (.org)](https://img.shields.io/travis/e-hein/emulate-tab?label=travis)](https://travis-ci.org/e-hein/emulate-tab)
+Automated tests for current Chrome and Firefox by github actions: 
+![test workflow](https://github.com/e-hein/emulate-tab/actions/workflows/test-coverage.yml/badge.svg)
 
 License:
 --------
