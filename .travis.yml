@@ -1,6 +1,0 @@
-language: node_js
-addons:
-  chrome: stable
-  firefox: latest
-node_js:
-  - lts/*
