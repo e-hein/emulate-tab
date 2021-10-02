@@ -1,5 +1,5 @@
 [![npm (tag)](https://img.shields.io/npm/v/emulate-tab/latest)](https://www.npmjs.com/package/emulate-tab)
-![test workflow](https://github.com/e-hein/emulate-tab/actions/workflows/test-coverage.yml/badge.svg)
+![test workflow](https://github.com/e-hein/emulate-tab/actions/workflows/test-coverage.yml/badge.svg?branch=master)
 
 emulate tab
 ===========
@@ -43,7 +43,7 @@ none.
 Browser compatibility:
 ----------------------
 Automated tests for current Chrome and Firefox by github actions: 
-![test workflow](https://github.com/e-hein/emulate-tab/actions/workflows/test-coverage.yml/badge.svg)
+![test workflow](https://github.com/e-hein/emulate-tab/actions/workflows/test-coverage.yml/badge.svg?branch=master)
 
 License:
 --------
