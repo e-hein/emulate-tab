@@ -1,6 +1,6 @@
 {
   "name": "emulate-tab",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "emulate tab key without selector or dependencies",
   "scripts": {
     "test": "node test.js",
