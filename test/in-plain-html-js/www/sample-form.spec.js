@@ -50,6 +50,16 @@ describe('sample form', () => {
       'readonly-input',
       'input-before-select',
       'select',
+      'input-before-number-input',
+      'number-input',
+      'input-before-password-input',
+      'password-input',
+      'input-before-search-input',
+      'search-input',
+      'input-before-tel-input',
+      'tel-input',
+      'input-before-url-input',
+      'url-input',
       'input-before-button',
       'button',
       'input-before-clickable-div',
@@ -67,6 +77,11 @@ describe('sample form', () => {
 
   itShouldTabFrom('first-input').to('second-input');
   itShouldTabFrom('input-before-hidden-input').to('input-after-hidden-input');
+  itShouldTabFrom('input-before-number-input').to('number-input');
+  itShouldTabFrom('input-before-password-input').to('password-input');
+  itShouldTabFrom('input-before-search-input').to('search-input');
+  itShouldTabFrom('input-before-tel-input').to('tel-input');
+  itShouldTabFrom('input-before-url-input').to('url-input');
 
   describe('advanced api', () => {
     let firstInput;

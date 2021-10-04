@@ -190,6 +190,7 @@ describe('emulate tab', () => {
         '#input-before-disabled-input', '#input-after-disabled-input',
         '#input-before-readonly-input', '#readonly-input',
         '#input-before-mat-select', '#mat-select',
+        '#input-before-number-input', '#number-input',
         '#input-before-button', '#mat-raised-button',
         '#input-before-clickable-div', '#clickable-div',
         '#input-before-link', '#link-with-href', '#link-without-href', '#plain-link-with-href',
@@ -232,6 +233,28 @@ describe('emulate tab', () => {
       }
       expect(activeElement.selectionStart).toBe(0, 'selection start');
       expect(activeElement.selectionEnd).toBeGreaterThan(0, 'selection end');
+    });
+
+    it('tab into input with number should not thorw', async () => {
+      // given
+      const firstInput = await (await loader.getHarness(MatInputHarness.with({ selector: '#input-before-number-input' })));
+      const secondInput = await (await loader.getHarness(MatInputHarness.with({ selector: '#number-input' })));
+      await secondInput.setValue('1234');
+      await firstInput.focus();
+
+      const origError = console.error;
+      const mockErrorLog = jasmine.createSpy('errorLog');
+      console.error = mockErrorLog;
+
+      try {
+        // when
+        await emulateTab();
+      } finally {
+        console.error = origError;
+      }
+
+      // then
+      expect(mockErrorLog).not.toHaveBeenCalled();
     });
 
     it('should not tab out of input that prevents default actions', async () => {
