@@ -3,6 +3,7 @@ const possibleSizeAttributeKeys = new Array<keyof HTMLElement>(
 );
 
 const shiftModifier = true;
+const selectableTypes = /text|password|search|tel|url/;
 
 interface HTMLElementWithValidTabIndex extends HTMLElement {
   tabIndex: number;
@@ -110,7 +111,7 @@ function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement, 
         console.warn('could not switch active element');
       }  
     }
-    if (target instanceof HTMLInputElement) {
+    if (target instanceof HTMLInputElement && selectableTypes.test(target.type)) {
       target.selectionStart = 0;
     }
   
