@@ -60,6 +60,10 @@ describe('sample form', () => {
       'tel-input',
       'input-before-url-input',
       'url-input',
+      'input-before-color-input',
+      'color-input',
+      'input-before-custom-input',
+      'custom-input',
       'input-before-button',
       'button',
       'input-before-clickable-div',
@@ -82,6 +86,7 @@ describe('sample form', () => {
   itShouldTabFrom('input-before-search-input').to('search-input');
   itShouldTabFrom('input-before-tel-input').to('tel-input');
   itShouldTabFrom('input-before-url-input').to('url-input');
+  itShouldTabFrom('input-before-custom-input').to('custom-input');
 
   describe('advanced api', () => {
     let firstInput;
@@ -232,7 +237,42 @@ describe('sample form', () => {
       // cleanup
       firstInput.removeEventListener('keydown', keydownListener);
     });
+  });
+  
+  describe('selection after tabbing', () => {
+    it('should not try to select all in color input', () => {
+      // given
+      const inputBefore = document.getElementById('input-before-color-input');
+      inputBefore.focus();
+      const origConsoleError = console.error;
+      const errorSpy = console.error = jasmine.createSpy('consoleError');
+  
+      // when
+      try {
+        emulateTab();
+      } finally {
+        console.error = origConsoleError;
+      }
+  
+      // then
+      expect(errorSpy).not.toHaveBeenCalled();
+    });
 
+    it('should try to select all in custom input type', () => {
+      // given
+      const inputBefore = document.getElementById('input-before-custom-input');
+      const customInput = /** @type {HTMLInputElement} */ (document.getElementById('custom-input'));
+      customInput.value = 'some text';
+      inputBefore.focus();
+  
+      // when
+      emulateTab();
+  
+      // then
+      const selectedElement = /** @type {HTMLInputElement} */ (document.activeElement);
+      expect(selectedElement).toBe(customInput);
+      expect(selectedElement.selectionEnd - selectedElement.selectionStart).toBe('some text'.length);
+    });
   });
 });
 
