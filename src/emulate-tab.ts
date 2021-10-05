@@ -3,6 +3,7 @@ const possibleSizeAttributeKeys = new Array<keyof HTMLElement>(
 );
 
 const shiftModifier = true;
+const selectableTypes = /text|password|search|tel|url/;
 
 interface HTMLElementWithValidTabIndex extends HTMLElement {
   tabIndex: number;
@@ -99,7 +100,6 @@ function emulateTabFrom(source: HTMLElement = document.body) {
 }
 
 function emulateTabFromSourceToTarget(source: HTMLElement, target: HTMLElement, sendKeyEventsWithShiftModifier = false) {
-  const selectableTypes = /text|password|search|tel|url/;
   const executeDefaultAction = source.dispatchEvent(createTabEvent('keydown', sendKeyEventsWithShiftModifier));
   if (executeDefaultAction) {
     source.blur();
