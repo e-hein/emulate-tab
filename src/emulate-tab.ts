@@ -79,7 +79,7 @@ function emulateTabFrom(source: HTMLElement = document.body) {
      * 
      * @returns true if switched elemenet and false if default action had been prevented
      */
-    toPreviousElement: () => emulateTabFromSourceToTarget(source, getPreviousElement(), shiftModifier),
+    toPreviousElement: () => emulateTabFromSourceToTarget(source, getPreviousElement(source), shiftModifier),
 
     /**
      * emulate tab to the element after the starting element (which is the active element by default)
